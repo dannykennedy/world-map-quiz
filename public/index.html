@@ -6,9 +6,148 @@
     <script src="./scripts/svg-pan-zoom.min.js"></script>
     <script src="./scripts/worldmap.js"></script>
     <title>World Map Quiz</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      h1 {
+        text-align: center;
+        margin: 0;
+        padding: 1rem;
+        background-color: #333;
+        color: white;
+      }
+
+      #worldmap {
+        display: block;
+        margin: 0 auto;
+      }
+
+      #worldmap path {
+        cursor: pointer;
+      }
+
+      #worldmap path:hover {
+        fill: #345984;
+      }
+
+      #worldmap path.selected {
+        fill: #0f0;
+      }
+
+      #worldmap path {
+        transition: fill 0.3s;
+      }
+
+      #worldmap path {
+        stroke: #000;
+        stroke-width: 0.5;
+      }
+
+      #worldmap path {
+        fill: #c0c0c0;
+      }
+
+      #worldmap path {
+        fill-rule: evenodd;
+      }
+
+      #worldmap path {
+        opacity: 1;
+      }
+
+      #worldmap path {
+        fill: #ffffff;
+      }
+
+      #worldmap path {
+        stroke: #000000;
+      }
+
+      #worldmap path {
+        stroke-width: 0.5;
+      }
+
+      #worldmap path {
+        fill-rule: evenodd;
+      }
+
+      #worldmap path {
+        opacity: 1;
+      }
+
+      #worldmap path {
+        fill: #ffffff;
+      }
+
+      #worldmap path {
+        stroke: #000000;
+      }
+
+      #worldmap path {
+        stroke-width: 0.5;
+      }
+
+      #worldmap path {
+        fill-rule: evenodd;
+      }
+
+      #worldmap path {
+        opacity: 1;
+      }
+
+      #worldmap path {
+        fill: #ffffff;
+      }
+
+      #worldmap path {
+        stroke: #000000;
+      }
+
+      #worldmap path {
+        stroke-width: 0.5;
+      }
+
+      #worldmap path {
+        fill-rule: evenodd;
+      }
+
+      #worldmap path {
+        opacity: 1;
+      }
+
+      #worldmap path {
+        fill: #ffffff;
+      }
+
+      #worldmap path {
+        stroke: #000000;
+      }
+
+      #worldmap path {
+        stroke-width: 0.5;
+      }
+
+      #worldmap path {
+        fill-rule: evenodd;
+      }
+
+      #quiz-area {
+        text-align: center;
+        margin: 1rem;
+        background-color: #f4f4f4;
+      }
+    </style>
   </head>
   <body>
     <h1>World map quiz!</h1>
+    <div id="quiz-area">
+      <!-- Select, with the name of every country on the map -->
+      <select id="country-list-select"></select>
+    </div>
     <div style="width: 100%; background-color: antiquewhite">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -10578,7 +10717,32 @@
         // Will get called after embed element was loaded
         var svgElement = document.querySelector("#worldmap");
         var panZoomTiger = svgPanZoom(svgElement);
+
+        // Populate the country list
+        // (every <title> element inside a <g> element is a country)
+        var countryList = document.getElementById("country-list-select");
+        var countries = svgElement.querySelectorAll("g title");
+        countries.forEach(function (country) {
+          var option = document.createElement("option");
+          option.value = country.textContent;
+          option.textContent = country.textContent;
+          countryList.appendChild(option);
+        });
       });
+
+      // On click, highlight the country
+      document
+        .getElementById("worldmap")
+        .addEventListener("click", function (e) {
+          var target = e.target;
+          if (target.tagName === "circle") {
+            var country = target.id.replace("_", "");
+            var countryElement = document.getElementById(country);
+            if (countryElement) {
+              countryElement.classList.toggle("highlight");
+            }
+          }
+        });
     </script>
   </body>
 </html>
